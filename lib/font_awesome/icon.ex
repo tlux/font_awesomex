@@ -1,20 +1,27 @@
 defmodule FontAwesome.Icon do
+  @moduledoc """
+  A struct that holds icon settings.
+  """
+
   use Phoenix.HTML
 
-  @ns "fa"
-  @prefix "#{@ns}-"
-  @constraints %{
-    flip: [:horizontal, :vertical],
-    rotate: [0, 90, 180, 270],
-    animation: [:spin, :pulse]
+  @modifiers %{
+    outline: false,
+    fixed_width: true,
+    size: nil,
+    rotate: 0,
+    flip: nil,
+    list: false,
+    border: false,
+    animation: nil
   }
 
   @enforce_keys [:name]
+  defstruct [:name, stacked: false] ++ Map.to_list(@modifiers)
 
-  defstruct [:name, size: nil, fixed_width: true, list: false, border: false,
-             outline: false, animation: nil, rotate: 0, flip: nil,
-             classes: %{}]
-
+  @doc """
+  Creates new icon with the specified `name` and `options`.
+  """
   def new(name, options \\ []) do
     icon = %__MODULE__{name: sanitize_name(name)}
     Enum.reduce(options, icon, fn {key, value}, icon ->
@@ -22,29 +29,42 @@ defmodule FontAwesome.Icon do
     end)
   end
 
-  def render(%__MODULE__{} = icon) do
-    content_tag(:i, nil, class: "fa", area_hidden: "true")
-  end
+  @doc """
+  Gets the full name of the icon with the outline modifier appended to it.
+  """
+  def icon_name(%__MODULE__{name: name, outline: true}), do: "fa-#{name}-o"
+  def icon_name(%__MODULE__{name: name, outline: false}), do: "fa-#{name}"
 
-  def put(%__MODULE__{} = icon, :size, value) when is_integer(value) do
-    put(icon, :size, "#{value}x")
-  end
-
-  def put(%__MODULE__{} = icon, :size, value) when is_binary(value) do
-    %{icon | size: value}
-  end
-
-  def put(%__MODULE__{} = icon, key, value) when is_atom(key) do
-    constraints = @constraints[key]
-    if constraints && !(value in constraints) do
-      allowed_values = constraints
-                       |> Enum.map(&inspect/1)
-                       |> Enum.join(", ")
-      raise ArgumentError, message: "Invalid value for #{key}: " <>
-                                    "#{inspect(value)} (restricted " <>
-                                    "to #{allowed_values})"
+  Enum.each(@modifiers, fn {key, _default} ->
+    @doc """
+    Sets the `:#{key}` modifier with the specified value for the given icon.
+    """
+    def unquote(key)(icon, key, value) do
+      put(icon, unquote(key), value)
     end
-    Map.put(icon, key, value)
+  end)
+
+  @doc """
+  Sets the given modifier for the icon. Possible `keys` are `:outline`,
+  `:fixed_width`, `:size`, `:rotate`, `:flip`, `:list`, `:border`, `:animation`.
+  When the specified value is `nil`, resets the modifier to its default.
+  """
+  def put(%__MODULE__{} = icon, key, nil), do: delete(icon, key)
+  def put(%__MODULE__{} = icon, key, value), do: Map.put(icon, key, value)
+
+  @doc """
+  Removes the given modifier from the icon, restoring the particular default
+  value.
+  """
+  def delete(%__MODULE__{} = icon, key) do
+    Map.put(icon, key, @modifiers[key])
+  end
+
+  @doc """
+  Renders the safe HTML code for the icon.
+  """
+  def render(%__MODULE__{} = icon) do
+    content_tag(:i, nil, class: FontAwesome.css_prefix, aria_hidden: "true")
   end
 
   defp sanitize_name(nil) do
