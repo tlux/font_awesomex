@@ -1,0 +1,2 @@
+defmodule FontAwesome do
+end
