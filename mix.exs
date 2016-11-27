@@ -27,6 +27,7 @@ defmodule FontAwesome.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:phoenix_html, "~> 2.6"},
+     {:credo, "~> 0.4", only: :dev}]
   end
 end
