@@ -5,14 +5,14 @@ defmodule FontAwesome.Icon do
 
   use Phoenix.HTML
 
-  import FontAwesome, only: [css_prefix: 1]
+  import FontAwesome, only: [css_prefix: 0, css_prefix: 1]
 
   @default_fixed_width Application.get_env(:font_awesome, :fixed_width, false)
 
   @enforce_keys [:name]
   defstruct [:name, stacked: false, outline: false,
              fixed_width: @default_fixed_width, size: nil, rotate: 0, flip: nil,
-             list: false, border: false, pull: nil, animation: nil]
+             list: false, border: false, pull: nil, animate: nil]
 
   @doc """
   Creates new icon with the specified `name` and `options`.
@@ -58,7 +58,7 @@ defmodule FontAwesome.Icon do
                     class = get_class(key, value),
                     !is_nil(class),
                     do: class
-    [get_name(icon)] ++ modifiers
+    [css_prefix, get_name(icon)] ++ modifiers
   end
 
   defp get_name(%{name: name, outline: true}), do: css_prefix("#{name}-o")
@@ -89,7 +89,7 @@ defmodule FontAwesome.Icon do
 
   def get_class(:pull, side), do: css_prefix(["pull", side])
 
-  def get_class(:animation, style), do: css_prefix(style)
+  def get_class(:animate, style), do: css_prefix(style)
 
   def get_class(_key, _value), do: nil
 end

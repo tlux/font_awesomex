@@ -13,6 +13,6 @@ defmodule FontAwesomeTest do
     assert function_exported?(TestView, :fa_icon, 1)
     assert function_exported?(TestView, :fa_icon, 2)
     assert to_string(TestView.fa_icon(:custom)) ==
-           ~s(<i aria-hidden="true" class="fa-custom"></i>)
+           ~s(<i aria-hidden="true" class="fa fa-custom"></i>)
   end
 end
