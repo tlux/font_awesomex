@@ -5,13 +5,13 @@ defmodule FontAwesome.Icon do
 
   use Phoenix.HTML
 
-  import FontAwesome, only: [css_prefix: 0, css_prefix: 1]
+  import FontAwesome.Utils, only: [css_prefix: 0, css_prefix: 1]
 
-  @default_fixed_width Application.get_env(:font_awesome, :fixed_width, false)
+  alias FontAwesome.Config
 
   @enforce_keys [:name]
   defstruct [:name, stacked: false, outline: false,
-             fixed_width: @default_fixed_width, size: nil, rotate: 0, flip: nil,
+             fixed_width: Config.fixed_width?, size: nil, rotate: 0, flip: nil,
              list: false, border: false, pull: nil, animate: nil]
 
   @doc """
