@@ -5,9 +5,7 @@ defmodule FontAwesome.Icon do
 
   use Phoenix.HTML
 
-  import FontAwesome, only: [css_prefix: 0, css_prefix: 1]
-
-  alias FontAwesome.CSS
+  import FontAwesome, only: [css_prefix: 1]
 
   @default_fixed_width Application.get_env(:font_awesome, :fixed_width, false)
 
@@ -27,9 +25,18 @@ defmodule FontAwesome.Icon do
   @doc """
   Renders the safe HTML code for the icon.
   """
-  def render(%__MODULE__{} = icon) do
+  def to_safe_string(%__MODULE__{} = icon) do
     css = icon |> get_classes |> Enum.join(" ")
     content_tag(:i, nil, class: css, aria_hidden: "true")
+  end
+
+  @doc """
+  Renders the HTML code for the icon.
+  """
+  def to_string(%__MODULE__{} = icon) do
+    icon
+    |> to_safe_string
+    |> safe_to_string
   end
 
   defp sanitize_name(nil) do
@@ -85,4 +92,21 @@ defmodule FontAwesome.Icon do
   def get_class(:animation, style), do: css_prefix(style)
 
   def get_class(_key, _value), do: nil
+end
+
+defimpl String.Chars, for: FontAwesome.Icon do
+  def to_string(icon) do
+    FontAwesome.Icon.to_string(icon)
+  end
+end
+
+defimpl Phoenix.HTML.Safe, for: FontAwesome.Icon do
+  def to_iodata(icon) do
+    case FontAwesome.Icon.to_safe_string(icon) do
+      {:safe, data} ->
+        data
+      value ->
+        raise Protocol.UndefinedError, protocol: @protocol, value: value
+    end
+  end
 end
