@@ -92,8 +92,7 @@ end
 ```
 
 There may be cases when the default name (icon) conflicts with your existing
-implementation. For these these cases you can define a name when using the
-module:
+implementation. In these cases you can define a name when using the module:
 
 ```elixir
 defmodule MyApp.PageView do
