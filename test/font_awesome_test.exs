@@ -16,8 +16,9 @@ defmodule FontAwesomeTest do
 
     assert function_exported?(TestView1, :icon, 1)
     assert function_exported?(TestView1, :icon, 2)
-    assert to_string(TestView1.icon(:custom, animate: :spin)) ==
-           ~s(<i aria-hidden="true" class="fa fa-custom fa-spin"></i>)
+    assert TestView1.icon(:custom, animate: :spin) ==
+           {:safe, [?<, "i", " aria-hidden=\"true\" class=\"fa fa-custom fa-spin\"",
+                    ?>, "", ?<, ?/, "i", ?>]}
   end
 
   test "import of the globally custom named :fa_icon function when used" do
@@ -29,8 +30,9 @@ defmodule FontAwesomeTest do
 
     assert function_exported?(TestView2, :fa_icon, 1)
     assert function_exported?(TestView2, :fa_icon, 2)
-    assert to_string(TestView2.fa_icon(:custom, animate: :spin)) ==
-           ~s(<i aria-hidden="true" class="fa fa-custom fa-spin"></i>)
+    assert TestView2.fa_icon(:custom, animate: :spin) ==
+           {:safe, [?<, "i", " aria-hidden=\"true\" class=\"fa fa-custom fa-spin\"",
+                    ?>, "", ?<, ?/, "i", ?>]}
   end
 
   test "import of the custom named :fa_icon function when used" do
@@ -42,7 +44,34 @@ defmodule FontAwesomeTest do
 
     assert function_exported?(TestView3, :test_icon, 1)
     assert function_exported?(TestView3, :test_icon, 2)
-    assert to_string(TestView3.test_icon(:custom, outline: true, rotate: 90)) ==
-           ~s(<i aria-hidden="true" class="fa fa-custom-o fa-rotate-90"></i>)
+    assert TestView3.test_icon(:custom, outline: true, rotate: 90) ==
+           {:safe, [?<, "i", " aria-hidden=\"true\" class=\"fa fa-custom-o fa-rotate-90\"",
+                    ?>, "", ?<, ?/, "i", ?>]}
+  end
+
+  test "render HTML safe string" do
+    defmodule TestView4 do
+      use Phoenix.HTML
+      use FontAwesome
+
+      def hello_world_1, do: icon(:diamond)
+
+      def hello_world_2 do
+        content_tag :div, class: "wrapper" do
+          [
+            icon(:heart),
+            "Hello World"
+          ]
+        end
+      end
+    end
+
+    assert TestView4.hello_world_1 == {:safe,
+             [?<, "i", " aria-hidden=\"true\" class=\"fa fa-diamond\"", ?>, "",
+              ?<, ?/, "i", ?>]}
+    assert TestView4.hello_world_2 == {:safe,
+             [?<, "div", " class=\"wrapper\"", ?>,
+               [[?<, "i", " aria-hidden=\"true\" class=\"fa fa-heart\"", ?>, "",
+                 ?<, ?/, "i", ?>], "Hello World"], ?<, ?/, "div", ?>]}
   end
 end

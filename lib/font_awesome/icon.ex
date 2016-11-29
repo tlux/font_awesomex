@@ -24,20 +24,20 @@ defmodule FontAwesome.Icon do
   end
 
   @doc """
-  Renders the safe HTML code for the icon.
-  """
-  def to_safe_string(%__MODULE__{} = icon) do
-    css = icon |> get_classes |> Enum.join(" ")
-    content_tag(:i, nil, class: css, aria_hidden: "true")
-  end
-
-  @doc """
   Renders the HTML code for the icon.
   """
   def to_string(%__MODULE__{} = icon) do
     icon
     |> to_safe_string
     |> safe_to_string
+  end
+
+  @doc """
+  Renders the safe HTML code for the icon.
+  """
+  def to_safe_string(%__MODULE__{} = icon) do
+    css = icon |> get_classes |> Enum.join(" ")
+    content_tag(:i, nil, class: css, aria_hidden: "true")
   end
 
   defp sanitize_name(nil) do
@@ -108,11 +108,7 @@ end
 
 defimpl Phoenix.HTML.Safe, for: FontAwesome.Icon do
   def to_iodata(icon) do
-    case FontAwesome.Icon.to_safe_string(icon) do
-      {:safe, data} ->
-        data
-      value ->
-        raise Protocol.UndefinedError, protocol: @protocol, value: value
-    end
+    {:safe, data} = FontAwesome.Icon.to_safe_string(icon)
+    data
   end
 end

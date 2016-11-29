@@ -17,15 +17,42 @@ defmodule FontAwesome do
       Renders a Font Awesome icon.
       """
       def unquote(options[:as] || Config.helper_name)(name, options \\ []) do
-        FontAwesome.icon(name, options)
+        FontAwesome.render_icon(name, options)
       end
     end
   end
 
   @doc """
-  Renders the icon with the given `name` and `options`.
+  Builds an icon with the given `name` and `options`.
+
+  **Examples**
+
+      iex> FontAwesome.icon("window-restore")
+      %FontAwesome.Icon{name: "window-restore"}
+
+      iex> FontAwesome.icon(:user_circle, outline: true)
+      %FontAwesome.Icon{name: "user-circle", outline: true}
   """
   def icon(name, options \\ []) do
     Icon.new(name, options)
+  end
+
+  @doc """
+  Renders the icon with the given `name` and `options`.
+
+  **Examples**
+
+      iex> FontAwesome.render_icon("window-restore")
+      {:safe, [?<, "i", ~s( aria-hidden="true" class="fa fa-window-restore"),
+               ?>, "", ?<, ?/, "i", ?>]}
+
+      iex> FontAwesome.render_icon(:user_circle, outline: true)
+      {:safe, [?<, "i", ~s( aria-hidden="true" class="fa fa-user-circle-o"),
+               ?>, "", ?<, ?/, "i", ?>]}
+  """
+  def render_icon(name, options \\ []) do
+    name
+    |> Icon.new(options)
+    |> Icon.to_safe_string
   end
 end
