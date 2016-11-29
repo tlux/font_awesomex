@@ -14,6 +14,8 @@ defmodule FontAwesomeTest do
       use FontAwesome
     end
 
+    Code.ensure_loaded(TestView1)
+
     assert function_exported?(TestView1, :icon, 1)
     assert function_exported?(TestView1, :icon, 2)
     assert TestView1.icon(:custom, animate: :spin) ==
@@ -28,6 +30,8 @@ defmodule FontAwesomeTest do
       use FontAwesome
     end
 
+    Code.ensure_loaded(TestView2)
+
     assert function_exported?(TestView2, :fa_icon, 1)
     assert function_exported?(TestView2, :fa_icon, 2)
     assert TestView2.fa_icon(:custom, animate: :spin) ==
@@ -41,6 +45,8 @@ defmodule FontAwesomeTest do
       @moduledoc false
       use FontAwesome, as: :test_icon
     end
+
+    Code.ensure_loaded(TestView3)
 
     assert function_exported?(TestView3, :test_icon, 1)
     assert function_exported?(TestView3, :test_icon, 2)
@@ -65,6 +71,8 @@ defmodule FontAwesomeTest do
         end
       end
     end
+
+    Code.ensure_loaded(TestView4)
 
     assert TestView4.hello_world_1 == {:safe,
              [?<, "i", " aria-hidden=\"true\" class=\"fa fa-diamond\"", ?>, "",
