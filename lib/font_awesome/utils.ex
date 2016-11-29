@@ -28,11 +28,15 @@ defmodule FontAwesome.Utils do
 
       iex> FontAwesome.Utils.css_prefix(["custom", "key"])
       "fa-custom-key"
+
+      iex> FontAwesome.Utils.css_prefix(["custom", nil, "key"])
+      "fa-custom-key"
   """
   def css_prefix(nil), do: @css_prefix
 
   def css_prefix(values) when is_list(values) do
     values
+    |> Enum.reject(&is_nil/1)
     |> Enum.join("-")
     |> css_prefix
   end

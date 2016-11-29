@@ -25,6 +25,19 @@ defmodule FontAwesome.IconTest do
            ~s(<i aria-hidden="true" class="fa fa-custom"></i>)
   end
 
+  test "direction option appends '-direction' suffix to the name selector" do
+    assert to_string(%Icon{name: "custom", direction: :left}) ==
+           ~s(<i aria-hidden="true" class="fa fa-custom-left"></i>)
+    assert to_string(%Icon{name: "custom", direction: "right"}) ==
+           ~s(<i aria-hidden="true" class="fa fa-custom-right"></i>)
+  end
+
+  test "outline and direction options both append their suffixes in the " <>
+       "right order" do
+    assert to_string(%Icon{name: "custom", outline: true, direction: :left}) ==
+           ~s(<i aria-hidden="true" class="fa fa-custom-o-left"></i>)
+  end
+
   test "fixed_width option adds 'fa-fw' class" do
     assert to_string(%Icon{name: "custom", fixed_width: true}) ==
            ~s(<i aria-hidden="true" class="fa fa-custom fa-fw"></i>)

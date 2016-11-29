@@ -14,7 +14,7 @@ defmodule FontAwesome do
   defmacro __using__(options) do
     quote location: :keep do
       @doc """
-      Renders a FontAwesome icon.
+      Renders a Font Awesome icon.
       """
       def unquote(options[:as] || Config.helper_name)(name, options \\ []) do
         FontAwesome.icon(name, options)

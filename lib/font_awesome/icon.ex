@@ -10,9 +10,10 @@ defmodule FontAwesome.Icon do
   alias FontAwesome.Config
 
   @enforce_keys [:name]
-  defstruct [:name, stacked: false, outline: false,
+  defstruct [:name, outline: false, direction: nil,
              fixed_width: Config.fixed_width?, size: nil, rotate: 0, flip: nil,
-             list: false, border: false, pull: nil, animate: nil]
+             list: false, border: false, pull: nil, animate: nil,
+             stacked: false]
 
   @doc """
   Creates new icon with the specified `name` and `options`.
@@ -61,8 +62,13 @@ defmodule FontAwesome.Icon do
     [css_prefix, get_name(icon)] ++ modifiers
   end
 
-  defp get_name(%{name: name, outline: true}), do: css_prefix("#{name}-o")
-  defp get_name(%{name: name, outline: false}), do: css_prefix(name)
+  defp get_name(%{name: name, outline: true, direction: dir}) do
+    css_prefix([name, "o", dir])
+  end
+
+  defp get_name(%{name: name, outline: false, direction: dir}) do
+    css_prefix([name, dir])
+  end
 
   defp get_class(_key, nil), do: nil
 
