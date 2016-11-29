@@ -2,9 +2,11 @@
 
 [![Build Status](https://travis-ci.org/tlux/font_awesomex.svg?branch=master)](https://travis-ci.org/tlux/font_awesomex)
 
-**This repository does not contain the Font Awesome font and stylesheets.**
+A library that provides a helper to easily integrate
+[Font Awesome](http://fontawesome.io/) into your
+[Phoenix](http://www.phoenixframework.org/) application.
 
-A library that provides a helper to easily integrate [Font Awesome](http://fontawesome.io/) into your [Phoenix](http://www.phoenixframework.org/) application.
+**This repository does not contain the Font Awesome font and stylesheets.**
 
 ## Prerequisites
 
@@ -22,6 +24,10 @@ def deps do
   [{:font_awesomex, "~> 4.0.0"}]
 end
 ```
+
+## Usage
+
+TBD
 
 ## What's missing
 
