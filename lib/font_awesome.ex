@@ -1,6 +1,7 @@
 defmodule FontAwesome do
   @moduledoc """
-  The base FontAwesome module.
+  The base base module that can be `import`ed or `use`d by view or template
+  modules.
   """
 
   alias FontAwesome.{Config, Icon}
