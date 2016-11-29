@@ -8,15 +8,15 @@ defmodule FontAwesome.Config do
 
   **Examples**
 
-      iex> Application.delete_env(:font_awesome, :fixed_width)
+      iex> Application.delete_env(:font_awesomex, :fixed_width)
       iex> FontAwesome.Config.fixed_width?
       false
 
-      iex> Application.put_env(:font_awesome, :fixed_width, false)
+      iex> Application.put_env(:font_awesomex, :fixed_width, false)
       iex> FontAwesome.Config.fixed_width?
       false
 
-      iex> Application.put_env(:font_awesome, :fixed_width, true)
+      iex> Application.put_env(:font_awesomex, :fixed_width, true)
       iex> FontAwesome.Config.fixed_width?
       true
   """
@@ -28,17 +28,17 @@ defmodule FontAwesome.Config do
 
   **Examples**
 
-      iex> Application.delete_env(:font_awesome, :helper_name)
+      iex> Application.delete_env(:font_awesomex, :helper_name)
       iex> FontAwesome.Config.helper_name
       :icon
 
-      iex> Application.put_env(:font_awesome, :helper_name, :fa_icon)
+      iex> Application.put_env(:font_awesomex, :helper_name, :fa_icon)
       iex> FontAwesome.Config.helper_name
       :fa_icon
   """
   def helper_name, do: get_value(:helper_name, :icon)
 
   defp get_value(key, default) do
-    Application.get_env(:font_awesome, key, default)
+    Application.get_env(:font_awesomex, key, default)
   end
 end

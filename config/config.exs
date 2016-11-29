@@ -10,11 +10,11 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :font_awesome, key: :value
+#     config :font_awesomex, key: :value
 #
 # And access this configuration in your application as:
 #
-#     Application.get_env(:font_awesome, :key)
+#     Application.get_env(:font_awesomex, :key)
 #
 # Or configure a 3rd-party app:
 #
