@@ -51,7 +51,6 @@ defmodule FontAwesome.Mixfile do
   defp package do
     [
       name: :font_awesomex,
-      files: [], # TODO
       maintainers: ["Tobias Casper"],
       licenses: ["MIT"],
       links: %{
