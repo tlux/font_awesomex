@@ -1,7 +1,7 @@
 defmodule FontAwesomeTest do
   @moduledoc false
 
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest FontAwesome
 
   setup do

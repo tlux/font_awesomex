@@ -1,7 +1,7 @@
 defmodule FontAwesome.IconTest do
   @moduledoc false
 
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest FontAwesome.Icon
 
   alias FontAwesome.Icon
