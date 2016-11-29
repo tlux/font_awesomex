@@ -64,34 +64,34 @@ defmodule FontAwesome.Icon do
   defp get_name(%{name: name, outline: true}), do: css_prefix("#{name}-o")
   defp get_name(%{name: name, outline: false}), do: css_prefix(name)
 
-  def get_class(_key, nil), do: nil
+  defp get_class(_key, nil), do: nil
 
-  def get_class(:size, value) when is_integer(value) do
+  defp get_class(:size, value) when is_integer(value) do
     css_prefix("#{value}x")
   end
 
-  def get_class(:size, value), do: css_prefix(value)
+  defp get_class(:size, value), do: css_prefix(value)
 
-  def get_class(:fixed_width, true), do: css_prefix("fw")
+  defp get_class(:fixed_width, true), do: css_prefix("fw")
 
-  def get_class(:stacked, true), do: css_prefix("stack")
+  defp get_class(:stacked, true), do: css_prefix("stack")
 
-  def get_class(:rotate, 0), do: nil
-  def get_class(:rotate, value) when is_integer(value) do
+  defp get_class(:rotate, 0), do: nil
+  defp get_class(:rotate, value) when is_integer(value) do
     css_prefix(["rotate", value])
   end
 
-  def get_class(:flip, direction), do: css_prefix(["flip", direction])
+  defp get_class(:flip, direction), do: css_prefix(["flip", direction])
 
-  def get_class(:list, true), do: css_prefix("li")
+  defp get_class(:list, true), do: css_prefix("li")
 
-  def get_class(:border, true), do: css_prefix("border")
+  defp get_class(:border, true), do: css_prefix("border")
 
-  def get_class(:pull, side), do: css_prefix(["pull", side])
+  defp get_class(:pull, side), do: css_prefix(["pull", side])
 
-  def get_class(:animate, style), do: css_prefix(style)
+  defp get_class(:animate, style), do: css_prefix(style)
 
-  def get_class(_key, _value), do: nil
+  defp get_class(_key, _value), do: nil
 end
 
 defimpl String.Chars, for: FontAwesome.Icon do
