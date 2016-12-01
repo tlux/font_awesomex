@@ -112,13 +112,13 @@ So everytime you use FontAwesome, it generates a helper with the name you
 defined. Add this line to your config/config.exs:
 
 ```elixir
-config :font_awesome, helper_name: :fa_icon
+config :font_awesomex, helper_name: :fa_icon
 ```
 
 To make all icons have a fixed width by default, add the following line.
 
 ```elixir
-config :font_awesome, fixed_width: true
+config :font_awesomex, fixed_width: true
 ```
 
 The value can still be overridden per-icon.
