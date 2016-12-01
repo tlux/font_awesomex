@@ -29,7 +29,7 @@ end
 
 ```elixir
 iex> icon = FontAwesome.icon(:stop_circle, outline: true, size: 3)
-%FontAwesome{name: "stop-circle", outline: true, size: 3, ...}
+%FontAwesome.Icon{name: "stop-circle", outline: true, size: 3, ...}
 
 iex> to_string(icon)
 "<i class=\"fa fa-stop-circle-o fa-size-3x\"></i>"
