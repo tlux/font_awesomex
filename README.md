@@ -48,7 +48,7 @@ Following options are available:
 | `:animate`     | Adds an animation to the icon                     | `:spin`, `:pulse`          | `fa-spin`, `fa-pulse` |
 | `:list`        | Treats the icon as list bullet                    | `true`, `false`            | `fa-li`               |
 | `:border`      | Adds a border to the icon                         | `true`, `false`            | `fa-border`           |
-| `:pull`        | Aligns the icon `:left` or `:right`               | `true`, `false`            | `fa-pull-left`        |
+| `:pull`        | Aligns the icon left or right                     | `:left`, `:right`          | `fa-pull-left`        |
 | `:stacked`     | Indicates whether the icon is used in a stack     | `true`, `false`            | `fa-stack`            |
 
 ### Phoenix Framework
